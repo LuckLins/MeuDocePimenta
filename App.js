@@ -1,4 +1,6 @@
 import React from 'react';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
