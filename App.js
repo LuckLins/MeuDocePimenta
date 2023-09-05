@@ -16,6 +16,7 @@ import Sobre from './src/telas/sobre';
 import Catalogo from './src/telas/Catalogo/catalogo';
 import Contato from './src/telas/contato';
 import Produtos from './src/telas/Produtos';
+import ListaDesejos from './src/telas/ListaDesejos';
 
 function MenuCesta() {
   return (
@@ -59,7 +60,15 @@ function TabsMenu() {
             iconName = focused
               ? 'list'
               : 'list-outline';
+          } else if (route.name === 'ListaDesejos') {
+            iconName = focused
+              ? 'heart'
+              : 'heart-outline';
           }
+          
+          
+          
+          
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -73,6 +82,7 @@ function TabsMenu() {
       <Tab.Screen name="Catálogo" component={Catalogo} />
       <Tab.Screen name="Contato" component={Contato} />
       <Tab.Screen name="Produtos" component={Produtos} />
+      <Tab.Screen name="ListaDesejos" component={ListaDesejos} />
     </Tab.Navigator>
 
   );
