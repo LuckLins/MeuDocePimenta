@@ -1,26 +1,27 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import Item from "./components/item.js";
 import StatusLista from '../../componentes/statusLista';
 import { FlatList, SafeAreaView } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import  Header from "../../componentes/Header.js";
 
-const produtos = [
-    {
-        id: 1,
-        nome: 'Cesta Inverno',
-        preco: 79.90,
-        descricao: 'Cesta de frutas típicas do inverno',
-        qtde: 1
-    },
-    {
-        id: 2,
-        nome: 'Cesta Verão',
-        preco: 89.90,
-        descricao: 'Cesta de frutas típicas do verão',
-        qtde: 2
-    }
-];
+// const produtos = [
+//     {
+//         id: 1,
+//         nome: 'Cesta Inverno',
+//         preco: 79.90,
+//         descricao: 'Cesta de frutas típicas do inverno',
+//         qtde: 1
+//     },
+//     {
+//         id: 2,
+//         nome: 'Cesta Verão',
+//         preco: 89.90,
+//         descricao: 'Cesta de frutas típicas do verão',
+//         qtde: 2
+//     }
+// ];
 
 export default function ListaDesejos() {
 
