@@ -25,12 +25,26 @@ import  Header from "../../componentes/Header.js";
 
 export default function ListaDesejos() {
 
-    const total = produtos.reduce((soma, {preco, qtde}) => soma + (preco * qtde), 0);
+    const[lista,setLista] = useState([]);
+
+    //Carrega os dados armazenados no AsyncStorage
+    const carregaLista = async() => {
+        const storedList = await AsyncStorage.getItem('ListaDesejos');
+        if(storedList !== null){
+            setLista(JSON.parse(storedList))
+        }
+    }
+
+    useEffect(()=>{
+        carregaLista();
+    },[]);
+
+    const total = lista.reduce((soma, {preco, qtde}) => soma + (preco * qtde), 0);
 
     return <SafeAreaView>
         <StatusLista total={total} />
         <FlatList
-			data={produtos}
+			data={lista}
 			renderItem={({item}) => (<Item {...item}/>)}
             keyExtractor={({id}) => (String(id))}
         />

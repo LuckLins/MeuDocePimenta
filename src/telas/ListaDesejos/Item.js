@@ -6,7 +6,7 @@ import estilos from "./estilos"
 import CampoInteiro from "../../componentes/CampoInteiro";
 
 
-export default function Item({ nome, descricao, preco, quantidade: qtdeInicial }) {
+export default function Item({ nome,imagem, preco, quantidade: qtdeInicial }) {
 
     const [quantidade, setQuantidade] = useState(qtdeInicial);
     const [total, setTotal] = useState(preco * qtdeInicial);
@@ -25,6 +25,7 @@ export default function Item({ nome, descricao, preco, quantidade: qtdeInicial }
     return <>
         <View style={estilos.produtos} >
             <Texto style={estilos.nome}>{nome}</Texto>
+            <Image source={imagem} style={{ width: 150, height: 150, }} />
             <Texto style={estilos.descricao}>{descricao}</Texto>
             <Texto style={estilos.preco}>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(preco)}</Texto>
         </View>

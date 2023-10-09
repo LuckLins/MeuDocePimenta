@@ -78,7 +78,7 @@ function TabsMenu() {
       <Tab.Screen name="Sobre" component={Sobre} />
       <Tab.Screen name="Catálogo" component={NovoCatalogo} />
       <Tab.Screen name="Contato" component={Contato} />
-      <Tab.Screen name="Favoritos" component={ListaDesejos} />
+      <Tab.Screen name="Favoritos" component={ListaDesejos} options={{ unmountOnBlur: true }} />
     </Tab.Navigator>
 
   );
