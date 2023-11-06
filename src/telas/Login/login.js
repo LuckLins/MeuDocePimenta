@@ -46,8 +46,8 @@ export default function Cameras() {
           <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
             <Text style={styles.text}>Alternar Camera</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={tirarFoto}>
-            <Text style={styles.text}>Tirar Foto</Text>
+          <TouchableOpacity style={styles.photobutton} onPress={tirarFoto}>
+            <Text style={styles.text}></Text>
           </TouchableOpacity>
         </View>
       </Camera>
@@ -61,7 +61,7 @@ const width = Dimensions.get('screen').width;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
   },
   permissionText: {
     fontSize: 18,
@@ -84,15 +84,24 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   buttonContainer: {
-    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-around',
     marginBottom: 30,
   },
   button: {
-    backgroundColor: 'blue',
-    padding: 15,
+    backgroundColor: 'white',
+    padding: 5,
     borderRadius: 10,
+    marginBottom: 5,
   },
+  photobutton: {
+    backgroundColor: 'white',
+    width:10,
+    height: 10,
+    padding: 40,
+    borderRadius: 50,
+  },
+  
   previewImage: {
     flex: 1,
   },

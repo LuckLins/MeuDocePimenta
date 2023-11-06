@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import Texto from '../../../componentes/Texto.js';
-import CampoInteiro from '../../../componentes/CampoInteiro';
+import React, {useState} from "react";
+import { View, TouchableOpacity, Image } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import estilos from "../styles/estilos.js";
-import { Button, View, TouchableOpacity, Image } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Texto from '../../../componentes/Texto';
+import Botao from '../../../componentes/Botao';
+import CampoInteiro from '../../../componentes/CampoInteiro';
 
-export default function Item({ id, nome, imagem, preco }) {
+export default function Item({id, nome, preco, img}) {
 
-    const [quantidade, setQuantidade] = useState(1);
-    const [total, setTotal] = useState(preco);
     const [expandir, setExpandir] = useState(false);
+    const [total, setTotal] = useState(preco);
+    const [quantidade, setQuantidade] = useState(1);
 
     const calculaTotal = (quantidade) => {
         setTotal(quantidade * preco)
@@ -20,74 +22,98 @@ export default function Item({ id, nome, imagem, preco }) {
         calculaTotal(novaQtd);
     };
 
-    //Método para o abre e fecha
+    function filtroNome(nome){
+        if(nome.length < 22){
+            return nome;
+        }
+        return `${nome.substring(0, 20)}...`;
+    }
+
     const inverteExpandir = () => {
         setExpandir(!expandir);
-
         //Retorna a quantidade para o estado padrão
         setQuantidade(1);
     };
-
-    //Função para savar o produto na lista de desejos
-    async function addListaDesejos(id, nome, preco, imagem, quantidade) {
-
+    
+    async function addListaDesejos(id, nome, preco, img, quantidade) {
+        
         const addProduto = [{
             id: id,
             nome: nome,
             preco: preco,
-            imagem: imagem,
-            quantidade: quantidade,
+            img: img,
+            qtde: quantidade
         }]
 
-        //AsyncStorage = popular: setItem / recuperar: getItem
-        //Verifica se a lista de desejos já contem itens
         const listaDesejosSalva = await AsyncStorage.getItem('ListaDesejos');
-        if(listaDesejosSalva !== null){
-            //A lista já tem itens
-            const listaDesejos = JSON.parse(listaDesejosSalva)
+        if (listaDesejosSalva !== null) {
+            const listaDesejos = JSON.parse(listaDesejosSalva);
+            
+            listaDesejos.forEach(async item => {
+                if (String(id) === String(item.id)) {
+                    const index = listaDesejos.findIndex(item => item.id === id)
+                    quantidade = item.qtde + 1;
+                    listaDesejos.splice(index, 1);
+                } 
+            })
 
-            //Adiciona o novo produto na lista de desejos
-            listaDesejos.push({id:id, nome:nome, preco:preco, imagem:imagem, quantidade:quantidade})
-
-            //Converte a lista em String
+            listaDesejos.push({id: id, nome: nome, preco: preco, img: img, qtde: quantidade});
             const listaDesejosAtualizada = JSON.stringify(listaDesejos);
             await AsyncStorage.setItem('ListaDesejos', listaDesejosAtualizada);
 
             console.log(listaDesejos);
-            console.log("Inseriu mais um item na lista");
-        }else{
-            //a lista está vazia. Insere o primeiro item
-            const listaDesejosAtualizada = JSON.stringify(addProduto);
 
-            //Insere o item no AsyncStorage
+        } else {
+            const listaDesejosAtualizada = JSON.stringify(addProduto);
+            
             await AsyncStorage.setItem('ListaDesejos', listaDesejosAtualizada);
-            console.log("Inseriu o item na lista")
+            console.log('Inseriu item na lista');
         }
     }
 
     return <>
-        <TouchableOpacity style={estilos.produtos} onPress={inverteExpandir}>
-            <Image source={imagem} style={{ width: 150, height: 150, }} />
-            <Texto style={estilos.nome}>{nome}</Texto>
-            {expandir && <Texto style={estilos.descricao}></Texto>}
-            <Texto style={estilos.preco}>
-                {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
-                    .format(preco)}
-            </Texto>
-        </TouchableOpacity>
-        {expandir &&
-            <View style={estilos.listaDesejos}>
-                <View style={estilos.posicao}>
-                    <Texto>Quantidade:</Texto>
-                    <CampoInteiro valor={quantidade} acao={atualizaQtdTotal} />
-                </View>
-                <View style={estilos.posicao}>
-                    <Texto>Total:</Texto>
-                    <Texto>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
-                        .format(total)}</Texto>
-                </View>
-                <Button color="#211F20"  title="Adicionar" onPress={() => addListaDesejos(id, nome, preco, imagem, quantidade)} />
-            </View>
-        }
+        <View>
+            { !expandir &&
+                <TouchableOpacity style={estilos.container} onPress={inverteExpandir}>
+                    <Image
+                        source={img}
+                        style={estilos.shoesImg}
+                    />
+                    <View style={estilos.textBox}>
+                        <Texto style={estilos.shoesText}>
+                            {filtroNome(nome)}
+                        </Texto>
+                        <View opacity={0.4}>
+                            <Texto style={estilos.priceText}> {Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(preco)} </Texto>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            }
+            { expandir &&
+                <TouchableOpacity style={estilos.containerExp} onPress={inverteExpandir}>
+                    <Image
+                        source={img}
+                        style={estilos.prodImg}
+                    />
+                    <Texto style={estilos.roupaText}>
+                            {(nome)}
+                    </Texto>
+                    <View style={estilos.listaDesejos}>
+                        <View style={estilos.nomePreco}>
+                            <View style={estilos.posicao}>
+                                <Texto style={estilos.textoNome}>Quantidade: </Texto>
+                                <CampoInteiro style={estilos.textoNomePreco} valor={quantidade} acao={atualizaQtdTotal}/>
+                            </View>
+                            <View style={estilos.posicao}>
+                                <Texto style={estilos.textoNome}>Total: </Texto>
+                                <Texto style={estilos.textoNomePreco}>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'})
+                                .format(total)}</Texto>
+                            </View>
+                        </View>
+                        <Botao texto='Adicionar' acao={() => addListaDesejos(id, nome, preco, img, quantidade)} style={{backgroundColor: 'black', width: 220}}/>
+                    </View>
+                </TouchableOpacity>
+            }
+        </View>
     </>
 }

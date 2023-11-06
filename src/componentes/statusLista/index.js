@@ -10,22 +10,22 @@ export default function StatusLista({total}) {
 
     const navigation = useNavigation();
 
-    const limpaListaDesejos = async () => {
+    const limpaLista = async () => {
         await AsyncStorage.clear();
-        console.log("A lista de desejos foi apagada com sucesso.");
-        alert.alert("A lista de desejos foi apagada com sucesso.");
-        navigation.navigate("Catálogo");
+        // alert.alert('A lista de desejos foi limpa com sucesso!')
+        console.log('A lista de desejos foi limpa com sucesso!');
+        navigation.navigate('Catálogo')
     }
 
     return <View style={estilos.conteudo}>
         <View style={estilos.total}>
-            <Texto style={estilos.descricao}>Total Lista de Desejos</Texto>
+            <Texto style={estilos.descricao}>Valor total da lista:</Texto>
             <Texto style={estilos.valor}>{
                 Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(total)
             }</Texto>
         </View>
         <View style={estilos.botao}>
-            <Botao texto='Limpar Lista' onPress={()=>limpaListaDesejos()}></Botao>
+            <Botao texto='Limpar lista' acao={() => limpaLista()} style={{backgroundColor: 'red'}}></Botao>
         </View>
     </View>
 }

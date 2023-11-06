@@ -1,35 +1,73 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native';
+
+const width = Dimensions.get('screen').width;
 
 export default StyleSheet.create({
-    nome: {
-        color: 'black',
-        fontWeight: "bold",
-        fontSize: 18,
+    textContainer:{
+        flexDirection: 'row',
+        marginVertical: '5%',
+        marginHorizontal: '5%'
     },
-    descricao: {
-        color: 'black',
-        fontSize: 18,
-    },
-    preco: {
+    text:{
+        marginTop: 10,
         fontSize: 20,
-        color: 'gray',
+        marginHorizontal: '1%'
     },
-    produtos: {
-        padding: 20
+    line:{
+        borderBottomColor: '#D8d8d8',
+        borderBottomWidth: 2,
+    },
+    container:{
+        flexDirection: 'row',
+        padding: '2%',
+        alignItems: 'center',
+    },
+    containerExp:{
+        flexDirection: 'column',
+        padding: '2%',
+        alignItems: 'center',
+    },
+    textBox: {
+        flexDirection: 'column',
+        paddingHorizontal: 10,
+        width: '100%'
+    },
+    shoesImg:{
+        marginTop: 15,
+        width: 100,
+        height: 100
+    },
+    prodImg:{
+        marginTop: 15,
+        width: width/1.5,
+        height: width/1.5
+    },
+    shoesText:{
+        fontSize: 20,
+        color: 'red'
+    },
+    priceText: {
+        fontSize: 20,
+        color: 'black'
     },
     listaDesejos: {
-        paddingHorizontal: 24,
-        paddingBottom: 24,
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: "flex-start",
-        flexWrap: 'wrap'
+        flexDirection: "column",
+        marginTop: 15,
     },
-    desejos: {
+    roupaText: {
+        fontSize: 24,
+        marginTop: 12,
+        color: 'red'
+    },
+    posicao: {
         flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        flexWrap: "wrap"
     },
-});
+    textoNome: {
+        fontSize: 18
+    },  
+    textoNomePreco: {
+        fontSize: 26,
+        color: 'red',
+        fontWeight: 'bold'
+    },
+})

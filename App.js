@@ -13,17 +13,15 @@ import {
 
 import Home from './src/telas/home';
 import Sobre from './src/telas/sobre';
-import Catalogo from './src/telas/Catalogo/catalogo';
+import NovoCatalogo from './src/telas/novoCatalogo/novoCatalogo';
 import Contato from './src/telas/contato';
-import Produtos from './src/telas/Produtos/produtos';
 import ListaDesejos from './src/telas/ListaDesejos/listaDesejos';
-import NovoCatalogo from './src/telas/novoCatalogo/catalogo';
-import Foto from './src/telas/Login/login';
+import Login from './src/telas/Login/login'
 
 function MenuCesta() {
   return (
     <SafeAreaView>
-      <Home />
+      <Home/>
       <StatusBar />
     </SafeAreaView>
   );
@@ -37,55 +35,50 @@ function TabsMenu() {
       style={{ backgroundColor: '#211F20' }}
       screenOptions={
         ({ route }) => ({
-          headerShown: false,
-          tabBarStyle: { backgroundColor: "#211F20", height: 55, paddingTop: 5, paddingBottom: 5 },
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+        headerShown: false,
+        tabBarStyle: { backgroundColor: "#211F20", height: 55, paddingTop: 5, paddingBottom: 5},
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'home'
-                : 'home-outline';
-            } else if (route.name === 'Catálogo') {
-              iconName = focused
-                ? 'shirt'
-                : 'shirt-outline';
-            } else if (route.name === 'Sobre') {
-              iconName = focused
-                ? 'chatbubble-ellipses'
-                : 'chatbubble-ellipses-outline';
-            } else if (route.name === 'Contato') {
-              iconName = focused
-                ? 'chatbubble'
-                : 'chatbubble-outline';
-            } else if (route.name === 'Produtos') {
-              iconName = focused
-                ? 'list'
-                : 'list-outline';
-            } else if (route.name === 'Favoritos') {
-              iconName = focused
-                ? 'heart'
-                : 'heart-outline';
-            }
-            else if (route.name === 'Login') {
-              iconName = focused
-                ? 'heart'
-                : 'heart-outline';
-            }
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'red',
-          tabBarInactiveTintColor: 'white',
-        })
-      }
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home'
+              : 'home-outline';
+          } else if (route.name === 'Catálogo') {
+            iconName = focused
+              ? 'shirt'
+              : 'shirt-outline';
+          } else if (route.name === 'Sobre') {
+            iconName = focused
+              ? 'chatbubble-ellipses'
+              : 'chatbubble-ellipses-outline';
+          } else if (route.name === 'Contato') {
+            iconName = focused
+              ? 'chatbubble'
+              : 'chatbubble-outline';
+          } else if (route.name === 'Favoritos') {
+            iconName = focused
+              ? 'heart'
+              : 'heart-outline';
+          } else if (route.name === 'Login') {
+            iconName = focused
+              ? 'heart'
+              : 'heart-outline';
+          }
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor: 'white',
+      })
+    }
     >
-      <Tab.Screen name="Home" component={MenuCesta} />
+      <Tab.Screen name="Home" component={MenuCesta}  />
       <Tab.Screen name="Sobre" component={Sobre} />
-      <Tab.Screen name="Catálogo" component={NovoCatalogo} />
+      <Tab.Screen name="Catálogo" component={NovoCatalogo}/>
       <Tab.Screen name="Contato" component={Contato} />
-      <Tab.Screen name="Favoritos" component={ListaDesejos} options={{ unmountOnBlur: true }} />
-      <Tab.Screen name="Login" component={Foto}/>
+      <Tab.Screen name="Favoritos" component={ListaDesejos} options={{unmountOnBlur: true}}/>
+      <Tab.Screen name="Login" component={Login} />
     </Tab.Navigator>
 
   );
@@ -105,8 +98,8 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <TabsMenu />
-    </NavigationContainer>
+      <NavigationContainer>
+        <TabsMenu />
+      </NavigationContainer>
   );
 }
